@@ -90,14 +90,12 @@ func main() {
 	defer f.Close()
 
 	wt := new(wtmp)
-
-	wtsize := unsafe.Sizeof(wt)
-	fmt.Printf("wsize : %d\n", wtsize)
+	wtsize := unsafe.Sizeof(wtmp{})
 
 	for {
 
 		if tailflag == 1 {
-			f.Seek(-384*5, os.SEEK_END)
+			f.Seek(int64(-wtsize*5), os.SEEK_END)
 			tailflag = 2
 		}
 
